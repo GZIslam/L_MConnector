@@ -9,7 +9,11 @@ const start = async () => {
     app.post("/receipt", async (req, res) => {
         const data = JSON.parse(req.body);
         console.log("receipt", req.body, data);
-        // res.send({ data: result })
+        res.send("health_check")
+    })
+
+    app.get("/", async (req, res) => {
+        res.send("test")
     })
 
     app.listen(port)
