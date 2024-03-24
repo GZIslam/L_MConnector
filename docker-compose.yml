@@ -11,17 +11,36 @@ services:
     ports:
       - 5000:5000
     restart: always
-    # network: htts-portal
-
-    # depends_on: 
-    #   https-portal
-  https-portal:
-    container_name: https-portal
-    image: steveltn/https-portal:1
+    depends_on: 
+      - traefik
+    labels:
+      - "traefik.enable=true"
+  # https-portal:
+  #   container_name: https-portal
+  #   image: steveltn/https-portal:1
+  #   ports:
+  #     - '80:80'
+  #     - '443:443'
+  #   restart: always
+  #   environment:
+  #     STAGE: 'production'
+  #     FORCE_RENEW: 'true'
+  traefik:
+    image: "traefik:v2.11"
+    container_name: "traefik"
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      #- "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=postmaster@example.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
-      - '80:80'
-      - '443:443'
-    restart: always
-    environment:
-      STAGE: 'production'
-      FORCE_RENEW: 'true'
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "./letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"

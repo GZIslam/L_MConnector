@@ -8,7 +8,7 @@ const start = async () => {
 
     app.post("/receipt", async (req, res) => {
         // const data = JSON.parse(req.body);
-        console.log("receipt", req.body, data);
+        console.log("receipt", req.body);
         res.send("health_check")
     })
 
