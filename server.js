@@ -13,7 +13,7 @@ const options = {
 const server = https.createServer(options, app);
 
 app.post("/receipt", async (req, res) => {
-    console.log("receipt", req.body);
+    console.log("receipt", req);
 })
 
 server.listen(port, () => {
