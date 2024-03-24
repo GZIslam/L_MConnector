@@ -27,10 +27,10 @@ services:
       - /home/blue/containers/caddy/caddy_config:/config
     networks:
       - caddy
-  volumes:
-    caddy_data:
-      external: true
-    caddy_config:
+  # volumes:
+  #   caddy_data:
+  #     external: true
+  #   caddy_config:
     # ports:
     #   - 80:80
     #   - 443:443
