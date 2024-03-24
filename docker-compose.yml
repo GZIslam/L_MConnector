@@ -8,12 +8,37 @@ services:
     volumes:
       - ./src:/app/src
       - ~/.npmrc:/app/.npmrc
+    networks:
+      - caddy
+    ports:
+      - 5000:5000
+      
+  caddy:
+    image: caddy:latest
+    restart: unless-stopped
+    container_name: caddy
     ports:
       - 80:80
       - 443:443
-      - 8080:8080
-      - 5000:5000
-    restart: always
+    volumes:
+      - /home/blue/containers/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - /home/blue/containers/caddy/site:/srv
+      - /home/blue/containers/caddy/caddy_data:/data
+      - /home/blue/containers/caddy/caddy_config:/config
+    networks:
+      - caddy
+  volumes:
+    caddy_data:
+      external: true
+    caddy_config:
+    # ports:
+    #   - 80:80
+    #   - 443:443
+    #   - 8080:8080
+    #   - 5000:5000
+    # restart: always
+
+
     # depends_on: 
     #   https-portal
   # https-portal:
