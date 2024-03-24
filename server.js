@@ -12,8 +12,8 @@ const options = {
 
 const server = https.createServer(options, app);
 
-app.post("/test", async (req, res) => {
-    res.send("test")
+app.post("/receipt", async (req, res) => {
+    console.log("receipt", req.body);
 })
 
 server.listen(port, () => {
