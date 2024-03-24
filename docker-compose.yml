@@ -9,20 +9,19 @@ services:
       - ./src:/app/src
       - ~/.npmrc:/app/.npmrc
     ports:
-      - 443:443
+      - 5000:5000
     restart: always
     # network: htts-portal
 
     # depends_on: 
     #   https-portal
-  # https-portal:
-  #   container_name: https-portal
-  #   image: steveltn/https-portal:1
-  #   ports:
-  #     - '80:80'
-  #     - '443:443'
-  #   links:
-  #     - main
-  #   restart: always
-  #   environment:
-  #     STAGE: 'production'
+  https-portal:
+    container_name: https-portal
+    image: steveltn/https-portal:1
+    ports:
+      - '80:80'
+      - '443:443'
+    restart: always
+    environment:
+      STAGE: 'production'
+      FORCE_RENEW: 'true'
