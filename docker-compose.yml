@@ -8,11 +8,10 @@ services:
     volumes:
       - ./src:/app/src
       - ~/.npmrc:/app/.npmrc
-    networks:
-      - caddy
+    # networks:
+    #   - caddy
     ports:
       - 5000:5000
-      
   caddy:
     image: caddy:latest
     restart: unless-stopped
@@ -25,8 +24,8 @@ services:
       - /home/blue/containers/caddy/site:/srv
       - /home/blue/containers/caddy/caddy_data:/data
       - /home/blue/containers/caddy/caddy_config:/config
-    networks:
-      - caddy
+    # networks:
+    #   - caddy
   # volumes:
   #   caddy_data:
   #     external: true
