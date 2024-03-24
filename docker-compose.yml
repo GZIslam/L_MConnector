@@ -1,6 +1,14 @@
 version: "3"
 
 services:
+  https-portal:
+    image: steveltn/https-portal:1
+    ports:
+      - '80:80'
+      - '443:443'
+    links:
+      - main
+    restart: always
   main:
     container_name: backend
     build:
@@ -12,3 +20,6 @@ services:
       - 443:443
       - 9229:9229
     restart: always
+    depends_on:
+      https-portal:
+        condition: service_healthy
