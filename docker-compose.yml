@@ -22,3 +22,5 @@ services:
     links:
       - main
     restart: always
+    environment:
+      STAGE: 'production'
