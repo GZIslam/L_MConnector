@@ -1,23 +1,41 @@
 const express = require("express");
 const app = express();
+const https = require("https");
+const fs = require("fs");
+const path = require("path");
 const port = 4000;
 
-const start = async () => {
-    app.use(express.urlencoded({ extended: true }))
-    app.use(express.json())
+const options = {
+    key: fs.readFileSync(path.join(__dirname, "localhost-key.pem")),
+    cert: fs.readFileSync(path.join(__dirname, "localhost.pem")),
+};
 
-    app.post("/receipt", async (req, res) => {
-        // const data = JSON.parse(req.body);
-        console.log("receipt", req.body);
-        res.send("health_check")
-    })
+const server = https.createServer(options, app);
 
-    app.get("/", async (req, res) => {
-        res.send("test")
-    })
+server.listen(port, () => {
+    console.log(`App listening on https://localhost:${port}`);
+});
 
-    app.listen(port)
-    console.log("App listening in port: ", port)
-}
+server.post("/test", async (req, res) => {
+    res.send("test")
+})
 
-start();
+// const start = async () => {
+//     app.use(express.urlencoded({ extended: true }))
+//     app.use(express.json())
+
+//     app.post("/receipt", async (req, res) => {
+//         // const data = JSON.parse(req.body);
+//         console.log("receipt", req.body);
+//         res.send("health_check")
+//     })
+
+//     app.post("/", async (req, res) => {
+//         res.send("test")
+//     })
+
+//     app.listen(port)
+//     console.log("App listening in port: ", port)
+// }
+
+// start();
