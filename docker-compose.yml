@@ -9,6 +9,5 @@ services:
       - ./src:/app/src
       - ~/.npmrc:/app/.npmrc
     ports:
-      - 5000:5000
-      - 9229:9229
+      - 443:443
     restart: always
