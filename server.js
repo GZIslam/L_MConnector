@@ -12,13 +12,13 @@ const options = {
 
 const server = https.createServer(options, app);
 
+app.post("/test", async (req, res) => {
+    res.send("test")
+})
+
 server.listen(port, () => {
     console.log(`App listening on https://localhost:${port}`);
 });
-
-server.post("/test", async (req, res) => {
-    res.send("test")
-})
 
 // const start = async () => {
 //     app.use(express.urlencoded({ extended: true }))
