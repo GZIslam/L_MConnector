@@ -8,8 +8,8 @@ services:
     volumes:
       - ./src:/app/src
       - ~/.npmrc:/app/.npmrc
-    ports:
-      - 5000:5000
+    # ports:
+    #   - 5000:5000
     restart: always
     depends_on: 
       - traefik
@@ -42,7 +42,7 @@ services:
       - "--certificatesresolvers.myresolver.acme.email=woxeyo2759@storesr.com"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
-      - "443:5000"
+      - "443:443"
       - "8080:8080"
     volumes:
       - "./letsencrypt:/letsencrypt"
