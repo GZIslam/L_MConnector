@@ -8,46 +8,21 @@ services:
     volumes:
       - ./src:/app/src
       - ~/.npmrc:/app/.npmrc
-    # networks:
-    #   - caddy
     ports:
       - 5000:5000
-  caddy:
-    image: caddy:latest
-    restart: unless-stopped
-    container_name: caddy
-    ports:
-      - 80:80
-      - 443:443
-    volumes:
-      - /home/blue/containers/caddy/Caddyfile:/etc/caddy/Caddyfile
-      - /home/blue/containers/caddy/site:/srv
-      - /home/blue/containers/caddy/caddy_data:/data
-      - /home/blue/containers/caddy/caddy_config:/config
-    # networks:
-    #   - caddy
-  # volumes:
-  #   caddy_data:
-  #     external: true
-  #   caddy_config:
-    # ports:
-    #   - 80:80
-    #   - 443:443
-    #   - 8080:8080
-    #   - 5000:5000
-    # restart: always
-
+    restart: always
+    network: htts-portal
 
     # depends_on: 
     #   https-portal
-  # https-portal:
-  #   container_name: https-portal
-  #   image: steveltn/https-portal:1
-  #   ports:
-  #     - '80:80'
-  #     - '443:5050'
-  #   links:
-  #     - main
-  #   restart: always
-  #   environment:
-  #     STAGE: 'production'
+  https-portal:
+    container_name: https-portal
+    image: steveltn/https-portal:1
+    ports:
+      - '80:80'
+      - '443:443'
+    links:
+      - main
+    restart: always
+    environment:
+      STAGE: 'production'
