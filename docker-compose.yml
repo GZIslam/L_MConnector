@@ -1,6 +1,35 @@
 version: "3"
 
 services:
+  traefik:
+    image: "traefik:v2.2"
+    container_name: "traefik"
+    command:
+#      - "--log.level=DEBUG"
+      - "--api.insecure=false"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=true"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+        # - "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=webmaster@example.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - "./letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - app-network
+    labels:
+      - "traefik.http.routers.http-catchall.rule=hostregexp(`{host:.+}`)"
+      - "traefik.http.routers.http-catchall.entrypoints=web"
+      - "traefik.http.routers.http-catchall.middlewares=redirect-to-https"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
   main:
     container_name: backend
     build:
@@ -8,19 +37,19 @@ services:
     volumes:
       - ./src:/app/src
       - ~/.npmrc:/app/.npmrc
-    ports:
-      - 5000:5050
+    # ports:
+    #   - 5000:5050
     restart: always
     # depends_on: 
     #   https-portal
-  https-portal:
-    container_name: https-portal
-    image: steveltn/https-portal:1
-    ports:
-      - '80:80'
-      - '443:5050'
-    links:
-      - main
-    restart: always
-    environment:
-      STAGE: 'production'
+  # https-portal:
+  #   container_name: https-portal
+  #   image: steveltn/https-portal:1
+  #   ports:
+  #     - '80:80'
+  #     - '443:5050'
+  #   links:
+  #     - main
+  #   restart: always
+  #   environment:
+  #     STAGE: 'production'
