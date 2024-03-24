@@ -9,14 +9,15 @@ services:
       - ./src:/app/src
       - ~/.npmrc:/app/.npmrc
     ports:
-      - 80:80
+      - 5000:5000
     restart: always
     depends_on: 
       - traefik
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.main.tls.certresolver=myresolver"
-
+      - "traefik.http.routers.main.entrypoints=websecure"
+      - "traefik.http.routers.main.tls=true"
   # https-portal:
   #   container_name: https-portal
   #   image: steveltn/https-portal:1
