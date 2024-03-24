@@ -17,7 +17,7 @@ services:
     volumes:
       - ./src:/app/src
       - ~/.npmrc:/app/.npmrc
-    ports:
-      - 8080:8080
-      - 9229:9229
+    # ports:
+    #   - 8080:8080
+    #   - 9229:9229
     restart: always
