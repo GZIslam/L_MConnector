@@ -6,5 +6,8 @@ COPY *.json ./
 RUN npm install
 
 COPY server.js ./
+COPY localhost.pem ./
+COPY localhost-key.pem ./
+
 
 CMD ["npm", "run", "start"]
