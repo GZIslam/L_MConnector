@@ -6,7 +6,7 @@ services:
     build:
       context: .
     volumes:
-      - ./src:/app/src
+      - ./server.js:/app/server.js
     restart: always
     labels:
       - "traefik.enable=true"

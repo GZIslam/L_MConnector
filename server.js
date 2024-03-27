@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const port = 80;
 
+app.use(express.json());
+
 app.post("/receipt", async (req, res) => {
     console.log("receipt", req.body);
     res.send({status: 200})

@@ -5,6 +5,4 @@ WORKDIR /app
 COPY *.json ./
 RUN npm install
 
-COPY server.js ./
-
 CMD ["npm", "run", "start"]
