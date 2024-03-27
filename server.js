@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const fetch = require("fetch");
 const port = 80;
 const tokenMS = "62cc340ef77da416a2a0e930c67da502435adc86";
 
