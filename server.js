@@ -1,16 +1,23 @@
 const express = require("express");
 const app = express();
 const request = require("./src/request");
-const products = (async () => await request("entity/product"))(); 
+const products = await request("entity/product"); 
 const {getProducts, requiredFields, PORT} = require("./src/misc");
 
 app.use(express.json());
 
 app.post("/receipt", async (req, res) => {
   const receipt = req.body;
+  console.log("receipt", JSON.stringify(receipt, null, 5));
   const shipment = requiredFields(receipt.payments ? receipt.payments[0].name : "Cash");
-  shipment.positions = getProducts(receipt.line_items || [], products);
-  console.log("shipment", JSON.stringify(shipment, null, 5))
+  const positions = getProducts(receipt.line_items || [], products);
+  console.log("positions", JSON.stringify(positions, null, 5));
+  shipment.positions = positions;
+  console.log("shipment", JSON.stringify(shipment, null, 5));
+  await request("entity/demand", {
+    method: "POST",
+    body: JSON.stringify(shipment)
+  })
   res.send({ status: 200 });
 });
 

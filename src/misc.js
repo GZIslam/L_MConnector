@@ -32,7 +32,7 @@ const requiredFields = (key) => ({
     }
 });
 
-const getProducts = async ( items, products) => {
+const getProducts = async (items, products) => {
     const res = items.map((item) => {
       const product = products.row.find((p) => p.name === item.item_name);
       if (product) {
