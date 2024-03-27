@@ -31,14 +31,14 @@ const reqFields = (agent) => ({
     }
 })
 
-const getProducts = async (list) => {
-    const list = await fetch("https://api.moysklad.ru/api/remap/1.2/entity/product", { 
+const getProducts = async () => {
+    const products = await fetch("https://api.moysklad.ru/api/remap/1.2/entity/product", { 
         headers: {
             "Authorization": `Bearer ${tokenMS}`
         }
     }).then(res => res.json());
 
-    console.log("getProducts", list);
+    console.log("getProducts", products);
 }
 
 getProducts();
