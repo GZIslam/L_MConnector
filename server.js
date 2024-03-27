@@ -12,7 +12,6 @@ app.get("/heartbeat", async (req, res) => {
     res.send("tuk tuk . . . tuk tuk")
 })
 
-
 app.listen(port, () => {
     console.log(`App listening on ${port} port`);
 });

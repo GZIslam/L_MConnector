@@ -7,45 +7,31 @@ services:
       context: .
     volumes:
       - ./src:/app/src
-    ports:
-      - 443:443
     restart: always
-    # depends_on: 
-    #   - traefik
-    # labels:
-    #   - "traefik.enable=true"
-    #   - "traefik.docker.network=traefik-public"
-    #   - "traefik.constraint-label=traefik-public"
-    #   # - "traefik.http.routers.main.tls.certresolver=myresolver"
-    #   - "traefik.http.routers.main.entrypoints=websecure"
-    #   - "traefik.http.routers.main.tls=true"
-  # https-portal:
-  #   container_name: https-portal
-  #   image: steveltn/https-portal:1
-  #   ports:
-  #     - '80:80'
-  #     - '443:443'
-  #   restart: always
-  #   environment:
-  #     STAGE: 'production'
-  #     FORCE_RENEW: 'true'
-  # traefik:
-  #   image: "traefik:v2.11"
-  #   container_name: "traefik"
-  #   command:
-  #     #- "--log.level=DEBUG"
-  #     - "--api.insecure=true"
-  #     - "--providers.docker=true"
-  #     - "--providers.docker.exposedbydefault=false"
-  #     - "--entrypoints.websecure.address=:443"
-  #     - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-  #     #- "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
-  #     - "--certificatesresolvers.myresolver.acme.email=woxeyo2759@storesr.com"
-  #     - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-  #   ports:
-  #     - "443:443"
-  #     - "8080:8080"
-  #     - "5000:4000"
-  #   volumes:
-  #     - "./letsencrypt:/letsencrypt"
-  #     - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.main.rule=Host(`l-ms-server.store`)"
+      - "traefik.http.routers.main.entrypoints=websecure"
+      - "traefik.http.routers.main.tls.certresolver=myresolver"
+  traefik:
+    image: "traefik:v2.11"
+    container_name: "traefik"
+    command:
+      #- "--log.level=DEBUG"
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      #- "--certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.myresolver.acme.email=martin@yandex.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "443:443"
+      - "8080:8080"
+      - "80:80"
+    volumes:
+      - "./letsencrypt:/letsencrypt"
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
