@@ -3,7 +3,7 @@ const app = express();
 const port = 80;
 
 app.post("/receipt", async (req, res) => {
-    console.log("receipt", req);
+    console.log("receipt", req.body);
     res.send({status: 200})
 })
 
