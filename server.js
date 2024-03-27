@@ -8,8 +8,8 @@ app.use(express.json());
 
 app.post("/receipt", async (req, res) => {
   const receipt = req.body;
-  const shipment = reqFields(receipt.payments[0].name);
-  shipment.positions = getProducts(receipt.line_items, products);
+  const shipment = reqFields(receipt?.payments[0].name);
+  shipment.positions = getProducts(receipt?.line_items, products);
   console.log("shipment", JSON.stringify(shipment, null, 5))
   res.send({ status: 200 });
 });

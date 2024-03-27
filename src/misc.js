@@ -18,7 +18,7 @@ const requiredFields = (key) => ({
     },
     "agent": {
       "meta": {
-        "href": `https://api.moysklad.ru/api/remap/1.2/entity/counterparty/${agentMap[key]}`,
+        "href": `https://api.moysklad.ru/api/remap/1.2/entity/counterparty/${agentMap[key] || POSScan}`,
         "type": "counterparty",
         "mediaType": "application/json"
       }
@@ -32,7 +32,7 @@ const requiredFields = (key) => ({
     }
 });
 
-const getProducts = async (items, products) => {
+const getProducts = async ( items = [], products) => {
     const res = items.map((item) => {
       const product = products.row.find((p) => p.name === item.item_name);
       if (product) {
