@@ -48,3 +48,5 @@ const getProducts = async (items, products) => {
   
     return res;
 };
+
+module.exports = {getProducts, requiredFields, PORT}

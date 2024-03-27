@@ -9,3 +9,5 @@ const request = async (url, params) => {
         ...params
     }).then(res => res.json());
 }
+
+module.exports = request;

@@ -2,8 +2,8 @@ const express = require("express");
 const app = express();
 const request = require("./src/request");
 const products = (async () => await request("entity/product"))(); 
-const getProducts = require("./src/misc");
-const reqFields = require("./src/misc");
+const {getProducts, reqFields, PORT} = require("./src/misc");
+
 app.use(express.json());
 
 app.post("/receipt", async (req, res) => {
@@ -19,6 +19,6 @@ app.get("/heartbeat", async (req, res) => {
   res.send("tuk tuk . . . tuk tuk");
 });
 
-app.listen(port, () => {
-  console.log(`App listening on ${port} port`);
+app.listen(PORT, () => {
+  console.log(`App listening on ${PORT} port`);
 });
