@@ -15,10 +15,12 @@ app.post("/receipt", async (req, res) => {
   console.log("positions", JSON.stringify(positions, null, 5));
   shipment.positions = positions;
   console.log("shipment", JSON.stringify(shipment, null, 5));
-  await request("entity/demand", {
-    method: "POST",
-    body: JSON.stringify(shipment)
-  })
+  if(positions.length) {
+    await request("entity/demand", {
+        method: "POST",
+        body: JSON.stringify(shipment)
+    })
+  }
   res.send({ status: 200 });
 });
 
