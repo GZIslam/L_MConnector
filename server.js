@@ -9,6 +9,8 @@ app.use(express.json());
 app.post("/receipt", async (req, res) => {
   if(!products) products = await request("entity/product"); 
   const receipts = req.body.receipts || [];
+  console.log("body", JSON.stringify(req.body, null, 5));
+  console.log("receipts", JSON.stringify(receipts, null, 5));
   for(let i = 0; i < receipts.length; i++) {
     const receipt = receipts[i];
     console.log("receipt", JSON.stringify(receipt, null, 5));
