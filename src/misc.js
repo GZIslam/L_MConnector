@@ -32,21 +32,20 @@ const requiredFields = (key) => ({
     }
 });
 
-const getProducts = async (items, products) => {
+const getProducts = (items, products) => {
     const res = items.map((item) => {
       const product = products.rows.find((p) => p.name === item.item_name);
       if (product) {
         return {
           quantity: item.quantity,
-          price: item.coast,
+          price: item.cost,
           assortment: {
             meta: product.meta
           },
         };
       }
-    })
-    console.log("res", res)
-    return res.filter(el => el);;
+    }).filter(el => el)
+    return res;
 };
 
 module.exports = {getProducts, requiredFields, PORT}
