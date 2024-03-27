@@ -13,6 +13,7 @@ services:
       - "traefik.http.routers.main.rule=Host(`l-ms-server.store`)"
       - "traefik.http.routers.main.entrypoints=websecure"
       - "traefik.http.routers.main.tls.certresolver=myresolver"
+      - "traefik.http.services.main.loadbalancer.server.port=80"
   traefik:
     image: "traefik:v2.11"
     container_name: "traefik"
