@@ -1,12 +1,13 @@
 const express = require("express");
 const app = express();
 const request = require("./src/request");
-const products = await request("entity/product"); 
+let products = undefined;
 const {getProducts, requiredFields, PORT} = require("./src/misc");
 
 app.use(express.json());
 
 app.post("/receipt", async (req, res) => {
+  if(!products) products = await request("entity/product"); 
   const receipt = req.body;
   console.log("receipt", JSON.stringify(receipt, null, 5));
   const shipment = requiredFields(receipt.payments ? receipt.payments[0].name : "Cash");
