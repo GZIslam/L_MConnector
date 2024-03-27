@@ -14,28 +14,9 @@ const server = https.createServer(options, app);
 
 app.post("/receipt", async (req, res) => {
     console.log("receipt", req);
+    res.send({status: 200})
 })
 
 server.listen(port, () => {
-    console.log(`App listening on https://localhost:${port}`);
+    console.log(`App listening on ${port} port`);
 });
-
-// const start = async () => {
-//     app.use(express.urlencoded({ extended: true }))
-//     app.use(express.json())
-
-//     app.post("/receipt", async (req, res) => {
-//         // const data = JSON.parse(req.body);
-//         console.log("receipt", req.body);
-//         res.send("health_check")
-//     })
-
-//     app.post("/", async (req, res) => {
-//         res.send("test")
-//     })
-
-//     app.listen(port)
-//     console.log("App listening in port: ", port)
-// }
-
-// start();
