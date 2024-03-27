@@ -44,9 +44,9 @@ const getProducts = async (items, products) => {
           },
         };
       }
-    }).filter(el => el);
-  
-    return res;
+    })
+    console.log("res", res)
+    return res.filter(el => el);;
 };
 
 module.exports = {getProducts, requiredFields, PORT}
