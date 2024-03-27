@@ -38,7 +38,7 @@ const getProducts = (items, products) => {
       if (product) {
         return {
           quantity: item.quantity,
-          price: item.total_money*10,
+          price: (item.total_money/item.quantity)*10,
           assortment: {
             meta: product.meta
           },
